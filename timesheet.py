@@ -175,6 +175,11 @@ def clock_action(workspace_path):
             new_row = last_row + 1
     
     if action == "clock-in":
+        # Clear any leftover "Total Duration:" text from this row
+        # (This can happen when clocking in on a row that previously held the total)
+        sheet.cell(row=new_row, column=3).value = None
+        sheet.cell(row=new_row, column=4).value = None
+        
         # Add date and clock-in time
         date_cell = sheet.cell(row=new_row, column=1, value=current_date)
         date_cell.font = base_font
